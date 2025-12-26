@@ -1,16 +1,16 @@
 use std::fs;
+use std::env;
 
 fn main() {
-
-    let mut val = 50;
-    let mut count = 0;
-
-    let file_path = "day1/input/day1.in";
+    let args: Vec<String> = env::args().collect();
+    let file_path = &args[1];
     let contents = fs::read_to_string(file_path).expect("Failed to read from file.");
     let turns = 
         str::split(&contents, "\n")
         .map(|turn| parse_turn(turn));
 
+    let mut val = 50;
+    let mut count = 0;
     for turn in turns {
         count_zeroes(&mut val, &mut count, turn);
     }
