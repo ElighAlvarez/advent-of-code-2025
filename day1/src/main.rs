@@ -12,7 +12,7 @@ fn main() {
     let mut val = 50;
     let mut count = 0;
     for turn in turns {
-        count_zeroes(&mut val, &mut count, turn);
+        (val, count) = count_zeroes(val, count, turn);
     }
 
     println!("Number of zeroes: {count}");
@@ -25,20 +25,21 @@ fn parse_turn(turn: &str) -> i32 {
 }
 
 // Can probably be simplified with some math.
-fn count_zeroes(val: &mut i32, count: &mut i32, turn: i32) {
+fn count_zeroes(mut val: i32, mut count: i32, turn: i32) -> (i32, i32) {
     if turn < 0 {
         for _ in 0..(turn * -1) {
-            *val -= 1;
-            if *val % 100 == 0 {
-                *count += 1;
+            val -= 1;
+            if val % 100 == 0 {
+                count += 1;
             }
         }
     } else {
         for _ in 0..turn {
-            *val += 1;
-            if *val % 100 == 0 {
-                *count += 1;
+            val += 1;
+            if val % 100 == 0 {
+                count += 1;
             }
         }
     }
+    (val, count)
 }
